@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeekFlow — Трекер задач</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo">Week<span>Flow</span></div>
+            <div class="header-right">
+                <label class="theme-toggle" title="Перемкнути тему">
+                    <span class="theme-icon">&#9728;&#65039;</span>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="themeToggle" onchange="toggleTheme(this)">
+                        <div class="toggle-track"></div>
+                        <div class="toggle-thumb"></div>
+                    </div>
+                    <span class="theme-icon">&#127769;</span>
+                </label>
+                <div class="current-date" id="currentDate"></div>
+            </div>
+        </header>
+
+        <div class="week-overview" id="weekOverview"></div>
+
+        <div class="main-grid">
+            <div class="day-panel">
+                <div class="day-header">
+                    <div>
+                        <div
+                            style="font-size:11px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;font-weight:700;">
+                            Обраний день</div>
+                        <div class="day-title" id="selectedDayTitle">Понеділок</div>
+                    </div>
+                    <div class="day-progress-ring">
+                        <svg width="68" height="68" viewBox="0 0 68 68">
+                            <circle class="ring-bg" cx="34" cy="34" r="30" />
+                            <circle class="ring-fill" id="ringFill" cx="34" cy="34" r="30" />
+                        </svg>
+                        <div class="ring-pct" id="ringPct">0%</div>
+                    </div>
+                </div>
+
+                <div class="filters" id="filters">
+                    <button class="filter-btn active" data-filter="all">Всі</button>
+                    <button class="filter-btn" data-filter="cat-work"><span class="cat-dot"
+                            style="background:var(--c-work)"></span>Робота</button>
+                    <button class="filter-btn" data-filter="cat-personal"><span class="cat-dot"
+                            style="background:var(--c-personal)"></span>Особисте</button>
+                    <button class="filter-btn" data-filter="cat-health"><span class="cat-dot"
+                            style="background:var(--c-health)"></span>Здоров'я</button>
+                    <button class="filter-btn" data-filter="cat-study"><span class="cat-dot"
+                            style="background:var(--c-study)"></span>Навчання</button>
+                    <button class="filter-btn" data-filter="cat-other"><span class="cat-dot"
+                            style="background:var(--c-other)"></span>Інше</button>
+                </div>
+
+                <div class="task-list" id="taskList"></div>
+
+                <div class="add-form">
+                    <div class="add-row-top">
+                        <input class="add-input" id="taskInput" placeholder="Назва задачі..." maxlength="120">
+                        <button class="add-btn" onclick="addTask()">+ Додати</button>
+                    </div>
+                    <div class="add-row-bottom">
+                        <select class="select-styled" id="catSelect">
+                            <option value="work">💼 Робота</option>
+                            <option value="personal">👤 Особисте</option>
+                            <option value="health">💪 Здоров'я</option>
+                            <option value="study">📚 Навчання</option>
+                            <option value="other">🔖 Інше</option>
+                        </select>
+                        <select class="select-styled" id="prioSelect">
+                            <option value="high">🔴 Високий пріоритет</option>
+                            <option value="mid">🟡 Середній пріоритет</option>
+                            <option value="low">🟢 Низький пріоритет</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stats-card">
+                    <h3>Тиждень в цифрах</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Всього задач</span>
+                        <span class="stat-value blue" id="statTotal">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Виконано</span>
+                        <span class="stat-value green" id="statDone">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Залишилось</span>
+                        <span class="stat-value pink" id="statLeft">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Загальний %</span>
+                        <span class="stat-value blue" id="statPct">0%</span>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>Прогрес по днях</h3>
+                    <div class="bar-chart" id="barChart"></div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>Категорії (тиждень)</h3>
+                    <div class="cat-legend" id="catLegend"></div>
+                </div>
+
+                <div class="motivation" id="motivationBlock">
+                    <div class="emoji">🚀</div>
+                    <p>Додайте перші задачі та почніть продуктивний тиждень!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="main.js"></script>
+</body>
+
+</html>
